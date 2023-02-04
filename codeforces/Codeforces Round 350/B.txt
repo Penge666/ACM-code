@@ -1,0 +1,35 @@
+
+/*
+
+题意：第一个机器人报自己的编号；第二个报前一个机器人和自己的编号；第三个机器人报前两个机器人和自己的编号。以此类推。
+每个机器人一个编号。问k个报什么。
+
+思路：简化M的值。
+
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+#include<bits/stdc++.h>
+using namespace std;
+#define int unsigned long long
+#define N 1500050
+int arr[N];
+
+signed  main(){
+    int n,m;
+    cin>>n>>m;
+
+    for(int i=1;i<=n;i++){
+        cin>>arr[i];
+
+        if(m<=i){
+            continue;
+        }else{
+                m-=i;
+        }
+    }
+    cout<<arr[m];
+    return 0;
+}

@@ -1,0 +1,22 @@
+/*
+思路：看了看数据范围。QAQ，发现可以打表===水过
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+int arr[]={1,6,28,120 ,496 ,2016, 8128,32640, 130816 ,523776};
+int main(){
+    int n;
+    cin>>n;
+    for(int i=9;i>=0;i--){
+        if(arr[i]>n)
+            continue;
+        if(arr[i]==n){
+            printf("%d",n);return 0;
+        }
+        if(n%arr[i]==0){
+            cout<<arr[i];return 0;
+        }
+    }
+    return 0;
+}

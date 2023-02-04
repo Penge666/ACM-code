@@ -1,0 +1,40 @@
+/*
+题意：给你个长度为 n 的数组和一个队列 , 队列最多可以同时存在 k 个数。遍历这个数组 , 如果当前数组对应的数在队列中则不做改动 , 如果不在则将它插入队首 , 并且将队尾弹出。遍历完后按照队列顺序输出。
+
+思路：模拟即可【deque+map】
+
+
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+map<int,int> vis;
+deque<int> q;
+signed main(){
+    int n,k;
+    cin>>n>>k;
+    int temp;
+    for(int i=1;i<=n;i++){
+        scanf("%lld",&temp);
+        if(vis[temp]){
+            continue;
+        }else{
+            vis[temp]++;
+            q.push_front(temp);
+
+            if(q.size()>k){
+                int x=q.back();
+                q.pop_back();
+                vis[x]--;
+            }
+        }
+    }
+    deque<int>::iterator it = q.begin();
+    cout<<q.size()<<endl;
+    for(;it!=q.end();it++){
+        printf("%lld ",*it);
+    }
+    return 0;
+}

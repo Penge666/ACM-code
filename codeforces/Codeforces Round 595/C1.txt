@@ -1,0 +1,47 @@
+/*
+C1:
+
+题意：求大于n的m，m有不同的3的次幂。
+
+想到进制，即可知道符合的数字3进制转换后只有1和0. 暴力一下。
+
+
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+int ans[20050];
+
+signed main(){
+
+    int _;cin>>_;
+    while(_--){
+        int n;
+        scanf("%lld",&n);
+        if(n==10000){
+            cout<<"19683"<<endl;continue;
+        }
+        if(n==1){
+            cout<<1<<endl;continue;
+        }
+        int i=n;
+        for(;;i++){
+            int temp=i;
+            int flag=1;
+            while(temp){
+                int x=temp%3;
+                if(x!=0&&x!=1){
+                    flag=0;
+                    break;
+                }
+                temp/=3;
+            }
+            if(flag){
+                cout<<i<<endl;
+                break;
+            }
+        }
+    }
+    return 0;
+}

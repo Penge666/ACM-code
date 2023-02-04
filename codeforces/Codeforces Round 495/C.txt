@@ -1,0 +1,45 @@
+/*
+C题：
+
+题意：给出一个长为n的数列（数字可以重复），表示在i号位置的数字为ai。.现在，在数列的最左和最右端有一个报数机器人，最左端的机器人向右移动，最右端的机器人向左移动，每移动到一个位置时，机器人就会将这个位置的数字报出来。现在，每个机器人都有一个编号，如果机器人报出来的数字和这个编号相同的话，机器人就会停止移动。
+问，这两个机器人的编号有多少种情况，可以使这两个机器人不发生碰撞。
+思路：跑后缀就行。用MAP标记超时了QAQ
+
+*/
+
+#include<map>
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+#define int long long
+#define N  250000
+int arr[N];
+int sum[N];
+int mp[N];
+int mmp[N];
+signed main(){
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        scanf("%lld",&arr[i]);
+    int add=0;
+
+    for(int  i=n;i>=1;i--){
+        sum[i]=add;
+        if(!mmp[arr[i]])
+            add++;
+        mmp[arr[i]]=1;
+    }
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        if(mp[arr[i]])
+            continue;
+        ans+=sum[i];
+        mp[arr[i]]=1;
+    }
+    cout<<ans;
+    return 0;
+}

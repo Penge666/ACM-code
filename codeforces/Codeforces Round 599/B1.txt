@@ -1,0 +1,50 @@
+/*
+ 直接暴力就行。【数据范围看错了。少开了一个0。啊啊，难受QAQ。。。。。。。】
+
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+#define N 1500
+int a[N];
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int n;
+        cin>>n;
+        string s1,s2;
+        cin>>s1>>s2;
+        if(s1==s2){
+            printf("Yes\n");
+            continue;
+        }
+        int flag=0;int s=0;
+
+        memset(a,0,sizeof(a));
+         int cnt=0;
+        for(int i=0;i<s1.size();i++){
+            if(s1[i]!=s2[i]){
+                a[cnt++]=i;
+                s++;
+            }
+            if(s>2){
+                break;
+            }
+        }
+        if(s!=2){
+            printf("No\n");
+        }else{
+            if((s1[a[0]]==s1[a[1]]&&s2[a[0]]==s2[a[1]])){
+                printf("Yes\n");
+            }else{
+                printf("No\n");
+            }
+        }
+    }
+    return 0;
+}

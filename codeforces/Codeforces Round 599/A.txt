@@ -1,0 +1,43 @@
+/*
+ 排序+暴力
+
+
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+#define N 1005000
+int arr[N];
+
+signed main(){
+    int _,n;
+    cin>>_;
+    while(_--){
+        cin>>n;
+        for(int i=1;i<=n;i++)
+            cin>>arr[i];
+        sort(arr+1,arr+1+n);
+        int ans=0;
+        for(int i=1;i<=n;i++){
+            int flag=0;
+            int s=0;
+            for(int j=n;j>=1;j--){
+                if(arr[j]>=i)
+                    s++;
+                if(s>=i){
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag){
+                ans=i;
+            }else{
+                break;
+            }
+        }
+        cout<<ans<<'\n';
+    }
+    return 0;
+}

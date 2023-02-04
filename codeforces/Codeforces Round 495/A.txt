@@ -1,0 +1,81 @@
+/*
+1.新添加一间酒店，要求酒店离已有的最近的一间酒店的距离恰好等于d
+
+2.最左和最右必定存在合适的两种情况
+
+3.酒店之间的情况就要判断两间酒店间的距离：
+
+小于2d，表示无法在这两间酒店中间找到合适情况
+等于2d，表示这两间酒店的正中间可以满足条件，新建酒店
+大于2d，表示这两间酒店之间存在两种满足条件的情况
+
+
+*/
+
+#include<bits/stdc++.h>
+
+/*
+
+-6 0 5 6 12 13 19
+
+2 6 10 13 16 21
+*/
+using namespace std;
+#define int long long
+#define N 209
+map<int,int> mp;
+int arr[N];
+signed main(){
+    int n,d;
+    cin>>n>>d;
+    for(int i=1;i<=n;i++)
+    {
+        cin>>arr[i];
+        mp[arr[i]]=1;
+    }
+    if(n==1){
+        cout<<2;
+        return 0;
+    }
+    sort(arr+1,arr+1+n);
+    int sum=0;
+    for(int i=1;i<=n;i++){
+        if(i==1){
+            if(!mp[arr[i]+d]&&(arr[i+1]-(arr[i]+d))>=d){
+            mp[arr[i]+d]=1;
+        //    cout<<arr[i]+d<<endl;
+            sum++;
+            }
+            continue;
+        }
+        if(i==n){
+            if(!mp[arr[i]-d]&&(arr[i]-d-arr[i-1])>=d){
+            mp[arr[i]-d]=1;
+        //    cout<<arr[i]-d<<endl;
+            sum++;
+            }
+            continue;
+        }
+        if(!mp[arr[i]-d]&&(arr[i]-d-arr[i-1])>=d){
+            mp[arr[i]-d]=1;
+        //    cout<<arr[i]-d<<endl;
+            sum++;
+        }
+        if(!mp[arr[i]+d]&&(arr[i+1]-(arr[i]+d))>=d){
+            mp[arr[i]+d]=1;
+        //    cout<<arr[i]+d<<endl;
+            sum++;
+        }
+    }
+    printf("%d\n",sum+2);
+    return 0;
+}
+
+/*
+3 2
+4 4
+5 6
+6 9
+*/
+
+*/

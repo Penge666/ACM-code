@@ -1,0 +1,70 @@
+/*
+题意：用最少的字母对，使得两个字符串相等。字母对之间的字母可以相互转换。
+
+思路：每对字符之间建条边，然后跑并查集即可。
+
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define N 305500
+int arr[N];
+int f[N];
+int n;
+string s1,s2;
+struct str{
+    int x,y;
+}st[N];
+vector<pair<int,int> > ans;
+int getf(int v){
+    if(v==f[v]){
+        return f[v];
+    }else{
+        f[v]=getf(f[v]);
+        return f[v];
+    }
+}
+int merge(int  u,int v){
+    int t1=getf(u);
+    int t2=getf(v);
+    if(t1!=t2){
+        f[t2]=t1;
+        ans.push_back(make_pair(u,v));
+        return 1;
+    }
+    return 0;
+}
+void init(){
+    for(int i=0;i<=26+1;i++)
+        f[i]=i;
+}
+signed main(){
+    init();
+    cin>>n>>s1>>s2;
+    int cnt=0;
+    for(int i=0;i<n;i++){
+        if(s1[i]==s2[i])
+            continue;
+        else{
+            st[cnt].x=s1[i]-'a';
+               st[cnt].y=s2[i]-'a';
+               cnt++;
+            st[cnt].x=s2[i]-'a';
+            st[cnt].y=s1[i]-'a';
+            cnt++;
+        }
+    }
+    int add=0;
+    for(int i=0;i<cnt;i++){
+        if(merge(st[i].x,st[i].y)){
+            add++;
+        }
+    }
+    cout<<add<<'\n';
+    for(int i=0;i<ans.size();i++){
+        cout<<(char)(ans[i].first+'a')<<" "<<(char)(ans[i].second+'a')<<'\n';
+    }
+    return 0;
+}

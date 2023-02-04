@@ -1,0 +1,59 @@
+/*
+
+题意：做一个蛋糕需要n个原材料，现有k个魔法材料，魔法材料可以替代成任何材料，现在告诉你蛋糕每个材料需要多少，以及你现在有多少个，问你最多能够做出多少个蛋糕来。
+
+思路：看了一下数据范围，然后开始暴力。
+
+*/
+
+/*
+
+10 926
+5 6 8 1 2 5 1 8 4 4
+351 739 998 725 953 970 906 691 707 1000
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+map<int,int> mp;
+int arr[2500];
+signed main(){
+    int n,m;
+    cin>>n>>m;
+    int temp;
+    for(int i=1;i<=n;i++){
+        scanf("%lld",&temp);
+        mp[i]=temp;
+    }
+    for(int i=1;i<=n;i++){
+        scanf("%lld",&arr[i]);
+    }
+    int ans=0;
+    while(1){
+        int flag=1;
+        for(int i=1;i<=n;i++){
+            if(arr[i]>=mp[i]){
+                arr[i]-=mp[i];
+            }else{
+                int x=mp[i]-arr[i];
+                if(x<=m){
+                    m-=x;
+                    arr[i]+=x;
+                    arr[i]-=mp[i];
+                }else{
+                    flag=0;
+                    break;
+                }
+            }
+        }
+        if(flag){
+            ans++;
+        }else{
+            break;
+        }
+    }
+    cout<<ans;
+
+    return 0;
+}

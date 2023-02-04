@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+
+#define N 200050
+int arr[N];
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int n,m;
+        scanf("%lld%lld",&n,&m);
+        for(int i=0;i<=m;i++)
+            arr[i]=0;
+        for(int i=1;i<=m;i++)
+            scanf("%lld",&arr[i]);
+        int ans=0;
+        arr[m+1]=0;
+        for(int i=2;i<=m;i++)
+        {
+            if(arr[i]-1==arr[i+1]){   //正好能接住。
+                i++;
+            }else{
+                ans++;// 需要一块板接住。
+                //cout<<i<<endl;
+            }
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}

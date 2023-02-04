@@ -1,0 +1,64 @@
+/*
+思路：明显的并查集。
+
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define N 100009
+#define int long long 
+int cost[N];
+int f[N];
+int getf(int v){
+    if(v==f[v]){
+        return f[v];
+    }else{
+        f[v]=getf(f[v]);
+        return f[v];
+    }
+}
+void merge(int u,int v){
+    int t1=getf(u);
+    int t2=getf(v);
+    if(t1!=t2){
+        f[t2]=t1;
+    }
+}
+signed main(){
+    int n,m; 
+    cin>>n>>m;
+    int sb=0;
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        scanf("%lld",&cost[i]);
+        sb+=cost[i];
+        f[i]=i;
+    }
+    if(m==0){
+        cout<<sb<<endl;
+        return 0;
+    }
+    for(int i=0;i<m;i++){
+        int x,y;
+        scanf("%lld%lld",&x,&y);
+        merge(x,y);
+    }    
+    /*for(int i=1;i<=n;i++){
+        if(i==f[i]){
+            cout<<i<<" ";
+        }
+    }
+    cout<<endl;*/
+    for(int i=1;i<=n;i++){
+        cost[getf(i)]=min(cost[getf(i)],cost[i]);// 关键：将该每一个集合中的最小花费赋值给祖先。 
+    }//
+    for(int i=1;i<=n;i++){
+        if(i==f[i]){
+            ans+=cost[i];
+        }
+    }
+    printf("%lld\n",ans);
+    return 0;
+}

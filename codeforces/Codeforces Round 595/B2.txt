@@ -1,0 +1,61 @@
+/*
+B2：
+
+找环，只要在同一个环的天数相等。开始暴力。。。。。。。。。。。
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+#define N 200020
+int arr[N];
+int ans[N];
+int vis[N];
+int a[N];
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int n;
+        scanf("%lld",&n);
+        for(int i=1;i<=n;i++){
+            scanf("%lld",&arr[i]);
+            vis[i]=0;
+        }
+
+
+        for(int i=1;i<=n;i++){
+            int sum=0;
+            if(vis[i])
+                continue;
+            int temp=i;
+            vector<int> v;
+            while(1){
+                sum++;
+                if(arr[temp]==i){
+                    break;
+                }
+                temp=arr[temp];
+                v.push_back(temp);
+            }
+            vis[i]=sum;
+            for(int j=0;j<v.size();j++){
+                vis[v[j]]=sum;
+            }
+        //    vis[i]=sum;
+        }
+        for(int i=1;i<=n;i++){
+            printf("%lld ",vis[i]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+/*
+
+3 6
+1 3 4 9 10
+1 2 3 4 5
+5 1 2 4 3
+4 4 4 1 4
+*/

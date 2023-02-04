@@ -1,0 +1,59 @@
+//思路：暴力并查集就行了。真的难受。
+
+#include<bits/stdc++.h>
+
+using namespace std;
+string str[1005000];
+int f[1005000];
+int n;
+map<int,int> mp;
+int getf(int v){
+    if(f[v]==v){
+        return f[v];
+    }else{
+        f[v]=getf(f[v]);
+        return f[v];
+    }
+}
+void merge(int u,int v){
+    int t1=getf(u);
+    int t2=getf(v);
+    if(t1!=t2){
+        f[t2]=t1;
+    }
+}
+void init(){
+    for(int i=0;i<=n+1;i++)
+        f[i]=i;
+}
+signed main(){
+    cin>>n;
+    init();
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        cin>>str[i];
+        for(int j=0;j<str[i].size();j++){
+            if(!mp[str[i][j]-'a']){
+                mp[str[i][j]-'a']=i;
+            }
+        }
+    }
+    for(int i=1;i<=n;i++){
+        int F=1;
+        for(int j=0;j<str[i].size();j++){
+            if(i!=mp[str[i][j]-'a']&&F){
+                merge(i,mp[str[i][j]-'a']);
+                F=1;
+
+            }
+        }
+    }
+    for(int i=1;i<=n;i++){
+        if(f[i]==i)
+            ans++;
+    //    cout<<f[i]<<" ";
+    }
+//    cout<<'\n';
+    cout<<ans<<'\n';
+    return 0;
+}

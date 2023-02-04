@@ -1,0 +1,41 @@
+/*
+心得：学会了vector中套结构体。。。。。。。。。。。
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+#define endl '\n'
+#define N 100009
+struct str{
+    string name;
+    int team;
+    int score;
+};
+vector<str> v[N];
+bool cmp(str a,str b){
+    return a.score>b.score;
+}
+int main(){
+    int n,m;
+    cin>>n>>m;
+    struct str temp;
+    for(int i=1;i<=n;i++){
+        cin>>temp.name>>temp.team>>temp.score;
+        v[temp.team].push_back(temp);
+    }
+    for(int i=1;i<=m;i++){
+        sort(v[i].begin(),v[i].end(),cmp);
+        if(v[i].size()==1){
+            puts("?");
+        }else if(v[i].size()==2){
+            cout<<v[i][0].name<<" "<<v[i][1].name<<endl;
+        }else{
+            if(v[i][1].score==v[i][2].score){
+                puts("?");
+            }else{
+                cout<<v[i][0].name<<" "<<v[i][1].name<<endl;
+            }
+        }
+    }
+    return 0;
+}

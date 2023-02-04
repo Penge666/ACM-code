@@ -1,0 +1,40 @@
+/*
+A题:n个学生，分成任意组，要求每组中任意两名学生的技能值相差不等于1，问最小分组.
+
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+int arr[150];
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int n;
+        cin>>n;
+        for(int i=1;i<=n;i++)
+            cin>>arr[i];
+        sort(arr+1,arr+1+n);
+        int sum=0;
+        int flag=0;
+        for(int i=1;i<n;i++){
+            if(arr[i+1]-arr[i]==1){
+                flag=1;
+                break;
+            }
+        }
+        if(flag){
+            printf("2\n");
+        }else{
+            printf("1\n");
+        }
+    }
+    return 0;
+}
+/*
+
+*/

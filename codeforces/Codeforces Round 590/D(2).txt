@@ -1,0 +1,61 @@
+/*
+思路2：【了解了大佬们的写法】维护26个树状数组,代表每个字母从1到i出现了多少次,对于查询,遍历这26个树状数组看每个字母是否在区间内出现,对于修改,这个位置原来的字母减去1,新来的字母加上1即可.
+
+
+*/
+#include<bits/stdc++.h>// 维护26棵树状数组QAQ
+
+using namespace std;
+#define int long long
+int n;
+struct str{
+    int c[150000];
+    int lowbit(int x){
+        return x&(-x);
+    }
+    void update(int x,int v){
+        for(int i=x;i<=n;i+=lowbit(i))
+            c[i]+=v;
+    }
+    int getsum(int x){
+        int res=0;
+        for(int i=x;i;i-=lowbit(i))
+            res+=c[i];
+        return res;
+    }
+    int query(int l,int r){
+        return getsum(r)-getsum(l-1);
+    }
+}st[35];
+signed main(){
+    string s;
+    cin>>s;
+    n=s.size();
+    for(int i=0;i<s.size();i++){
+        st[s[i]-'a'].update(i+1,1);
+    }
+    int Q;
+    cin>>Q;
+    int temp;
+    while(Q--){
+        cin>>temp;
+        if(temp==1){
+            int x;
+            char y;
+            cin>>x>>y;
+            st[s[x-1]-'a'].update(x,-1);
+            s[x-1]=y;
+            st[y-'a'].update(x,1);
+        }else{
+            int sum=0;
+            int L,R;
+            cin>>L>>R;
+            for(int i=0;i<26;i++){
+                if(st[i].query(L,R)>0)
+                    sum++;
+            }
+            printf("%lld\n",sum);
+        }
+    }
+    return 0;
+}

@@ -1,0 +1,49 @@
+
+/*
+思路：首先由于每次充钱我们只需要保证账户金额不超过d就可以无限充钱，那么我们不会因为检查时金额为负数而输出-1.
+因为我们一定有能力在检查的那天白天把金额充值到正数。现在的问题是，任何一天的白天金额不能超过d，且希望充值次数最少。
+所以在每次必须充值的时候，我们尽量多充一些，充多少由后面的前缀最大值定。假设未来的最大前缀是f[j]，那么此时最多只能充d - f[j]。
+
+[贪心：前缀和+后缀最值好题]
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define N 1250000
+int arr[N];
+int sum[N];// 前缀和
+int f[N];//从后面跑出的最大值 
+int main(){
+    int n,d;
+    scanf("%d%d",&n,&d);
+    for(int i=1;i<=n;i++)
+        scanf("%d",&arr[i]);
+    sum[0]=0;
+    for(int i=1;i<=n;i++)
+        sum[i]=sum[i-1]+arr[i];// 前缀和 
+    f[n]=sum[n];
+    for(int i=n-1;i>=1;i--)
+        f[i]=max(f[i+1],sum[i]);// 最大值
+    int ans=0;// 需要增加的钱  的数目 
+    int res=0;// 需要增加的钱  的金额 
+    for(int i=1;i<=n;i++){
+        if(!arr[i]){
+            if(sum[i]+res<0){ // 给钱的范围 --（不能超过接下来的最大值） 
+                res+=d-(f[i]+res);
+                ans++;
+            }
+            if(res+sum[i]<0){  // 如果钱还是为负数。则不符合 
+                puts("-1");
+                return 0;
+            }
+        }else{
+            if(res+sum[i]>d){// 
+                puts("-1");
+                return 0;
+            }
+        }
+    }
+    printf("%d\n",ans);
+    return 0;
+}

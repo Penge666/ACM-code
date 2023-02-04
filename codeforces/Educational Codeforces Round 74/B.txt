@@ -1,0 +1,54 @@
+//思路：去重，排序，从后往前跑即可。
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+bool cmp(int a,int b){
+    return a>b;
+}
+int arr[200100];
+signed  main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int n,r;
+        cin>>n>>r;
+        for(int i=0;i<=n+10;i++)
+            arr[i]=0;
+        int cnt=1;
+        map<int,int> mp;
+        for(int i=1;i<=n;i++)
+        {
+            int temp;
+            scanf("%lld",&temp);
+            if(mp[temp])
+                continue;
+            else{
+                mp[temp]=1;
+                arr[cnt++]=temp;
+            }
+        }
+        sort(arr+1,arr+cnt,cmp);
+        int ans=0;
+        for(int i=1;i<=cnt;i++){
+            arr[i]-=ans*r;
+            if(arr[i]>0){
+                ans++;
+            }else{
+                break;
+            }
+        }
+        printf("%lld\n",ans);
+    }
+    return 0;
+}
+/*
+2 3 5
+1 2 5
+1 2
+4 1
+1 1 1 1
+*/

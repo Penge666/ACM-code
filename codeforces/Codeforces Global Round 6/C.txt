@@ -1,0 +1,53 @@
+/*
+ 题意：往一个矩阵里面填数，使得每行每列的gcd都两两各不相同。且最大的gcd最小。
+
+思路：按照题意构造。
+
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+int arr[151000];
+int mp[1500][1500];
+signed main(){
+    int r,c;
+    cin>>r>>c;
+    if(r==1&&c==1){
+        cout<<"0";
+        return 0;
+    }
+    if(r==1){
+        int num=2;
+        for(int i=1;i<=c;i++){
+            printf("%lld ",num);
+            num++;
+        }
+    }else if(c==1){
+        int num=2;
+        for(int i=1;i<=r;i++){
+            printf("%lld\n",num);
+            num++;
+        }
+    }else{
+        int num=c+1;
+        for(int i=1;i<=r;i++){
+            arr[i]=num;
+            num++;
+        }
+        for(int i=1;i<=c;i++){
+            for(int j=1;j<=r;j++){
+                mp[j][i]=i*arr[j];
+            }
+        }
+        for(int i=1;i<=r;i++){
+            for(int j=1;j<=c;j++){
+                printf("%lld ",mp[i][j]);
+            }
+            printf("\n");
+        }
+    }
+    return 0;
+}

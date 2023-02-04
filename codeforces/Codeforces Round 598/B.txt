@@ -1,0 +1,56 @@
+/*
+
+按照题意暴力就行。从1到n枚举，每个数尽量地往前和比他大的数交换。并且保证相邻的位置只能换一次。
+【比赛·的时候读错题意，还想错了思路QAQ难受====】
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+#define N 150
+int arr[N];int vis[N];
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+
+        int n;cin>>n;
+        for(int i=1;i<=n;i++)
+            cin>>arr[i];
+        int m=n-1;
+        while(1){
+            int flag=0;
+            for(int i=n-1;i>=1;i--){
+                if(vis[i])
+                    continue;
+                if(arr[i]>arr[i+1]){
+                    int t=arr[i];
+                    arr[i]=arr[i+1];
+                    arr[i+1]=t;
+                    m--;
+                    flag=1;
+                    vis[i]=1;
+                    if(m<=0){
+                        break;
+                    }
+                }
+            }
+            if(m<=0){
+                break;
+            }
+            if(!flag){
+                break;
+            }
+        }
+        for(int i=1;i<=n;i++){
+            printf("%lld ",arr[i]);
+        }
+
+        printf("\n");
+        for(int i=0;i<=n+1;i++)
+            arr[i]=vis[i]=0;
+    }
+    return 0;
+}

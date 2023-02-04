@@ -1,0 +1,28 @@
+/*
+ 题意：给一个数，问他是不是可以由一个骰子塔的所有接触空气的面的数字构成。
+
+思路：每一圈之和恒为14。则判断一下<14的就OK
+
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+
+        int n;
+        cin>>n;
+        if(n%14<=6&&n%14>=1&&n>=14){
+            cout<<"YES";
+        }else{
+            cout<<"NO";
+        }
+    cout<<'\n';
+    }
+    return 0;
+}

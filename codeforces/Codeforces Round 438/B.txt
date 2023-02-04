@@ -1,0 +1,33 @@
+/*
+  思路：直接暴力---居然能过.钟表问题转换是真滴难QAQ【小学就没整懂】
+
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+int vis[500];
+signed main(){
+    int h,m, s, t1, t2;
+    cin>>h>>m>>s>>t1>>t2;
+    h*=5;t1*=5;
+    t2*=5;
+    vis[h]++;
+    vis[m]++;
+    vis[s]++;
+    int ss=0;
+    if(t1>t2)
+        swap(t1,t2);
+    for(int i=t1;i<t2;i++){
+        ss+=vis[i];
+    }
+    if(ss==0||ss==3){
+        cout<<"YES";
+    }
+    else{
+        cout<<"NO";
+    }
+    return 0;
+}

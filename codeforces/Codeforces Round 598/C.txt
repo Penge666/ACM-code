@@ -1,0 +1,69 @@
+/*
+贪心：在板之间加水。这样保证了所有的板都用上了。最后再特盘一个不能到达的情况即可。开始模拟。
+【这题调了一会BUG，好久没刷题的，代码都打不清楚了QAQQAQQAQ】
+
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+#define N 150000
+int arr[N];int n,m,k;
+int c[N];
+struct str{
+    int id;
+    int length;
+}st[N];
+
+signed main(){
+    cin>>n>>m>>k;
+    int Sum=0;
+    int POS=0;
+    for(int i=1;i<=m;i++){
+        POS+=k;
+        scanf("%lld",&st[i].length);
+        st[i].id=i;
+        POS+=st[i].length-1;
+        Sum+=st[i].length;
+    }
+    POS+=k;
+    if(POS<n+1){
+        printf("NO\n");
+        return 0;
+    }
+    printf("YES\n");
+    int tot=n-Sum;
+    int flag=0;
+    int dis=k-1;int now=0;
+    int pos=0;
+    //out<<tot<<endl;
+    for(int i=1;i<=m;i++){
+        if(flag==0){
+            int temp=min(dis,tot);
+            tot-=temp;
+            if(tot<=0){
+                flag=1;
+            }
+            while(temp--)
+                arr[++now]=0;
+            temp=st[i].length;
+           // Sum-=temp;
+            while(temp--)
+                arr[++now]=i;
+        }else{
+            int _;_=st[i].length;
+            while(_--)
+                arr[++now]=i;
+        }
+        if(now>=n+1){
+            break;
+        }
+    }
+    for(int i=1;i<=n;i++)
+        cout<<arr[i]<<" ";
+    printf("\n");
+
+    return 0;
+}

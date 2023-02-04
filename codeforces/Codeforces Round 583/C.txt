@@ -1,0 +1,52 @@
+/*
+题意：给出字符串长度，和一段只含左右括号的字符，并定义该字符序列是好的条件为括号匹配或者只通过移一个括号，能使其完全匹配，如果满足上述条件，则输出Yes，否则输出No。
+
+思路：用栈模拟括号匹配.最后判断栈中元素是否只有  )  (   这 两种括号即可.
+
+*/
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+int main(){
+    int n;
+    cin>>n;
+    string str;cin>>str;
+    stack<char> s;
+    if(n%2){
+        printf("No");return 0;
+    }
+    for(int i=0;i<n;i++){
+        if(s.empty()){
+            s.push(str[i]);
+        }else{
+            if(str[i]==')'){
+                char temp=s.top();
+                if(temp=='('){
+                    s.pop();
+                }else{
+                    s.push(str[i]);
+                }
+            }else{
+                s.push(str[i]);
+            }
+        }
+    }
+    if(s.empty()){
+        printf("Yes\n");return 0;
+    }else{
+        if(s.size()!=2){
+            printf("No");return 0;
+        }else{
+            char t1=s.top();s.pop();
+            char t2=s.top();s.pop();
+            if(t1=='('&&t2==')'){
+                printf("Yes\n");
+            }else{
+                printf("No\n");
+            }
+        }
+    }
+    return 0;
+}

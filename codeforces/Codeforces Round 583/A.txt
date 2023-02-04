@@ -1,0 +1,43 @@
+/*
+题意:有n个卢布，要换成美元和欧元，使手上剩余的卢克最少。一美元价值d卢布，一欧元价值e卢克.
+
+思路：关键：欧元的面值最小为5，则是5的倍数，美元最小面值为1。
+
+写法：特判+枚举。
+*/
+
+//欧元的面值最小为5，其实的都少5的倍数，美元最小面值为1。
+/*
+1 dollar---> d rubles
+1 euro ----> e rubles
+ 
+dollar  1 2 5 10 20 50 100
+euro     5 10 20 50 100 200
+ 
+*/
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+#define int long long
+ 
+signed main(){
+    int n,d,e;
+    cin>>n>>d>>e;
+    int ans=n;
+    int x1=n/e;
+    if(x1<5){
+        printf("%lld\n",n-(n/d)*d);return 0;
+    }else{
+        int t1=n/(e*5);
+        for(int i=0;i<=t1;i++){
+            int temp=n;
+            temp=temp-e*i*5-((n-e*i*5)/d)*d;
+            //int sum2=temp-(temp/d)*d;
+            ans=min(ans,temp);
+        }
+        printf("%lld\n",ans);
+        
+    }
+    return 0;
+}

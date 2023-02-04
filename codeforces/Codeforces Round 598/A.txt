@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+#define N 100500
+int arr[N];
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int a,b,n,s;
+        cin>>a>>b>>n>>s;
+        int y=s/n;
+        int x=min(a,y);
+        s-=x*n;
+        if(b>=s){
+            printf("YES\n");
+        } else{
+            printf("NO\n");
+        }
+    }
+    return 0;
+}

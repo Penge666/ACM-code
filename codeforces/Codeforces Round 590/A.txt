@@ -1,0 +1,31 @@
+/*
+题意：给你 n 个数 , 你需要改变这些数使得这 n 个数的值相等 , 并且要求改变后所有数的和需大于等于原来的所有数字的和 , 然后输出满足题意且改变后最小的数值。
+
+
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int n;
+        cin>>n;
+        int arr[n+10];
+        int s=0;
+        for(int i=1;i<=n;i++){
+            cin>>arr[i];
+            s+=arr[i];
+        }
+        int x=s/n;
+        if(s%n==0){
+            cout<<x;
+        }else{
+            cout<<x+1;
+        }
+        cout<<endl;
+    }
+    return 0;
+}

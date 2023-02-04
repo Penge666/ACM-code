@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+#define N 200009
+int arr[N];
+int ans[N];
+signed main(){
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        cin>>arr[i];
+    }
+    int l=1,r=n;
+    int cnt=0;
+    int now=0;
+    while(1){
+        if(now<arr[l]&&now<arr[r]){
+            if(arr[l]<arr[r]){
+
+                ans[++cnt]=0;
+                now=arr[l];
+                l++;
+            }else{
+
+                ans[++cnt]=1;
+                now=arr[r];
+                r--;
+            }
+        }else if(now<arr[l]){
+
+                ans[++cnt]=0;
+                now=arr[l];l++;
+        }else if(now<arr[r]){
+
+                ans[++cnt]=1;
+                now=arr[r];r--;
+        }else{
+            break;
+        }
+    }
+    cout<<cnt<<'\n';
+    for(int i=1;i<=cnt;i++){
+        if(ans[i])
+            cout<<"R";
+        else
+            cout<<"L";
+
+    }
+    return 0;
+}

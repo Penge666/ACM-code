@@ -1,0 +1,65 @@
+/*
+题意：给你n个关卡，每个关卡有一个怪物，怪物的攻击力为a【i】,你有n个英雄，每个英雄有一个攻击力，和疲劳值，只要英雄的攻击力比怪物的高就算打过了，同时疲劳减一，一天只能出战一个英雄，一个英雄可以打好几关（只要在疲劳范围内），打不过的话英雄就结束今天的挑战，转到第二天。问最少需要出战多少英雄才能通过所有关卡。
+
+思路：先用一个数组。跑出相同忍耐值时，攻击力越大。然后·跑出这个数组的后缀pre数组，pre数组的含义是：忍耐值一定，攻击力最大。然后通过O（n）的复杂度跑·怪物的数组。当怪物的a【i】值大于pre数组在上一天的攻击力时，进入下一天。【变相的二分】【题目比较难叙述QAQ】
+
+
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+const int N=22e4;int n;
+int arr[N];
+int pre[N];
+int str[N];
+int slove(){
+    int ans=1;//总天数
+    int last_time=-1;
+    int maxn=0;
+    for(int i=0;i<n;i++){
+        maxn=max(maxn,arr[i]);
+        if(pre[i-last_time]<maxn){
+            last_time=i-1;
+            ans++;
+            maxn=arr[i];
+        }
+        if(pre[1]<arr[i]){
+            return -1;
+        }
+    }
+    return ans;
+}
+signed  main(){
+    ios::sync_with_stdio(0);
+    int _;
+    cin>>_;
+    while(_--){
+        cin>>n;
+        int maxn1=0,maxn2=0;
+        for(int i=0;i<=n+10;i++)
+            arr[i]=0,str[i]=0,pre[i]=0;
+        for(int i=0;i<n;i++){
+            cin>>arr[i];
+            maxn1=max(maxn1,arr[i]);
+        }
+        int m;
+        cin>>m;
+        for(int i=0;i<m;i++){
+            int x,y;
+            cin>>x>>y;
+            maxn2=max(maxn2,x);
+            pre[y]=max(pre[y],x);//相同忍耐值时，攻击力越大
+        }
+        if(maxn1>maxn2){
+            cout<<"-1"<<'\n';
+            continue;
+        }
+        for(int i=n-1;i>0;i--){
+            pre[i]=max(pre[i+1],pre[i]);//
+        }
+        cout<<slove()<<'\n';
+    }
+    return 0;
+}

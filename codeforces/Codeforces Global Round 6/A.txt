@@ -1,0 +1,38 @@
+/*
+题意：给一个字符串，对它重新排列使得它是60的倍数。
+
+模拟一下，需要能整除60  字符串中需要 能整除2 3 10，所以需要字符串各位数之和能整除3 并且有 一个偶数和一个0  或者两个0也行【没考虑到，WA到自闭QAQ】， 特殊情况 全为0 也行，
+
+
+*/
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main(){
+    int _;cin>>_;
+    while(_--){
+        string str;
+        cin>>str;
+        int flag=0;int s=0;
+        int flag1=0;
+        for(int i=0;i<str.size();i++){
+            if(str[i]=='0'){
+                flag++;
+            }
+            if((str[i]-'0')%2==0&&(str[i]!='0')){
+                flag1=1;
+            }
+            s+=str[i]-'0';
+        }
+        if((flag1&&s%3==0&&flag)||(s%3==0&&flag>=2)){
+            cout<<"red"<<'\n';
+        }else{
+            cout<<"cyan"<<'\n';
+        }
+    }
+    return 0;
+}
+
+/*
+
+*/

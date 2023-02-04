@@ -1,0 +1,60 @@
+/*
+
+题意：分配exp点经验给力量s和智力i，求有多少种分配情况使s比i高。
+
+思路：分类讨论，模拟实现。
+
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int a,b,c;
+        scanf("%lld%lld%lld",&a,&b,&c);
+        if(c==0){
+            if(a>b){
+                printf("1\n");
+            }else{
+                printf("0\n");
+            }
+            continue;
+        }
+        if(a+c<=b){
+            printf("0\n");continue;
+        }
+        if(b+c<a) {
+            printf("%lld\n",c+1);continue;
+        }
+        if(a>b){
+            int sum=a+b+c;
+            if(sum%2==0){
+                int ans=a+c-sum/2;
+                printf("%lld\n",ans);
+            } else{
+                int ans=a+c-sum/2;
+                printf("%lld\n",ans);
+            }
+            continue;
+        }
+        if(a==b){
+            if(c%2)
+                c++;
+            printf("%lld\n",c/2);
+            continue;
+        }
+        if(a<b){
+            int temp=b-a;
+            c-=temp;
+            if(c%2)
+                c++;
+            printf("%lld\n",c/2);
+            continue;
+        }
+    }
+    return 0;
+}

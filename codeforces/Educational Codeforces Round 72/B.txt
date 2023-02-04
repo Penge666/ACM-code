@@ -1,0 +1,49 @@
+/*
+
+题意：T组数据。第一行输入n,x。n,x分别代表技能种类和头的初始数量。n行数据，代表技能的攻击力和恢复力。求砍完头的最小次数。
+
+思路：贪心。求出（n-x）最大的差值，和最大的攻击力。然后贪心。
+
+*/
+#include<bits/stdc++.h>
+// 重点：最后一次用最大攻击力砍掉头 ，其余用差值大的数减
+using namespace std;
+#define int long long
+#define inf 1<<30
+int n,m,ans;
+void work(){
+    int cha=-inf;
+    int gongjili=-inf;
+    int a,b;
+    for(int i=1;i<=n;i++){
+        cin>>a>>b;
+        cha=max(cha,a-b);// 最大差值
+        gongjili=max(gongjili,a);// 最大攻击力
+    }
+    if(gongjili>=m){// 特判一下
+        ans=1;
+        return ;
+    }
+    if(cha<=0){// 判断差值<=0
+        ans=-1;
+        return ;
+    }
+    m-=gongjili;
+    int sum=1;sum+=m/cha;
+    if(m%cha){
+        sum++;
+    }
+    ans=sum;
+    return ;
+}
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        cin>>n>>m;// 输入数据
+        ans=0;
+        work();//
+        printf("%lld\n",ans);
+    }
+    return 0;
+}

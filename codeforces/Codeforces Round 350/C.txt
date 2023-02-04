@@ -1,0 +1,47 @@
+/*
+题意：有n个人，每个人只会一种语言（不同编号表不同语言）。
+现在有m部电影，每部电影的声音是a[i],字幕是b[i]。（a[i]输入完输入b[i]）
+如果听得懂声音，他会非常满意，如果字幕他能看懂的话他会比较满意，否则它很不满意。
+现在问看哪部电影会使得n个人满意最高（如果两部电影使n个人非常满意的人数相同时，选比较满意的最多的）。
+
+
+思路：看了一些大佬的博客，都是用离散化。可是菜菜的我不会离散化QAQ。结果用个哈希MAP。居然水过。unordered_map<int,int> mp是个好东西。。。。。。。。。。。
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define int long long
+struct str{
+    int x,y,id;
+}st[300900];
+unordered_map<int,int> mp;
+bool cmp(str a,str b){
+    if(mp[a.x]!=mp[b.x]){
+        return mp[a.x]>mp[b.x];
+    }else{
+        return mp[a.y]>mp[b.y];
+    }
+}
+signed main(){
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        int temp;
+        scanf("%lld",&temp);
+        mp[temp]++;
+    }
+    int m;
+    cin>>m;
+    for(int i=1;i<=m;i++){
+        scanf("%lld",&st[i].x);
+        st[i].id=i;
+    }
+    for(int i=1;i<=m;i++){
+        scanf("%lld",&st[i].y);
+    }
+    sort(st+1,st+1+m,cmp);
+    cout<<st[1].id;
+    return 0;
+}

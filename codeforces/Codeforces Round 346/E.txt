@@ -1,0 +1,59 @@
+/*
+题意：n个城市，m条双向路，将这些路改成单向的，如果一个城市没有通向它的路，（入度为0）就说明该城市是单独的。问修改后最少有几个单独的城市，要使结果最小。
+
+思路：
+
+1.可以建成一个有向图，可能有k个联通块，如果一个联通块没有环，就说明这个联通块，至少有一个城市单独的，因此就化成找联通块和环的问题
+2.联通块的话可以用并查集来维护，然后用cir[maxn]数组来标记是否有环，如果这个联通块的根节点存在环，那么该联通块不存在单独的城市，如果不存在环的话cnt++，最后的cnt就是答案；
+
+【并查集找环】
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define N 150000
+int f[N];
+int arr[N];
+int getf(int v){
+    if(v==f[v]){
+        return f[v];
+    }
+    f[v]=getf(f[v]);
+    return f[v];
+}
+void merge(int u,int v){
+    int t1=getf(u);
+    int t2=getf(v);
+    if(t1!=t2){
+        f[t2]=t1;
+        if(arr[t2]){
+            arr[t1]=t2;
+        }
+    }else{
+        arr[t1]=1;
+    }
+}
+int n,m;
+void init(){
+    for(int i=1;i<=n;i++)
+        f[i]=i;
+} 
+int main(){
+
+    cin>>n>>m;
+    init();
+    int ans=0;
+    for(int i=1;i<=m;i++){
+        int x,y;
+        cin>>x>>y;
+        merge(x,y);
+    }    
+    for(int i=1;i<=n;i++){
+        if(f[i]==i&&!arr[i]){
+            ans++;
+        }
+    }
+    cout<<ans;
+    return 0;
+}

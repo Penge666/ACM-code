@@ -1,0 +1,26 @@
+ //题解：二进制+暴力。
+
+#include<bits/stdc++.h>
+using namespace std;
+int a[150000];
+int vis[150];int n,k;
+signed main(){
+    memset(vis,0,sizeof(vis));
+    cin>>n>>k;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=k;j++){
+            scanf("%d",&a[j]);
+        }
+         vis[a[1]+a[2]*2+a[3]*4+a[4]*8]=1;
+    }
+    for(int i=0;i<=(1<<k);i++){
+        for(int j=i;j<=(1<<k);j++){
+            if(vis[i]&&vis[j]&&(!(i&j))){
+                 printf("YES");
+                 return 0;
+            }
+        }
+    }
+    printf("NO");
+    return 0;
+}

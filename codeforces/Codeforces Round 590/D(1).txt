@@ -1,0 +1,57 @@
+/*
+题意：给你一个字符串 ， 有q个操作：
+①、 将 pos 位置的字符改为 c
+
+②、查询 L~ R 区间不同字符的个数
+
+思路1：set模拟实现。
+
+
+*/
+#include<bits/stdc++.h>
+ 
+using namespace std;
+set<int> s[30];
+char str[150000];
+int main(){
+        
+    
+    scanf("%s",str+1);
+    for(int i=1;i<=strlen(str+1);i++){
+        s[str[i]-'a'].insert(i);
+    }
+    int _;
+    scanf("%d",&_);
+    while(_--){
+        int T;
+        scanf("%d",&T);
+        if(T==1){
+            int x;
+            char c;
+            scanf("%d",&x);
+            cin>>c;
+            s[str[x]-'a'].erase(x);
+            s[c-'a'].insert(x);
+            str[x]=c;
+        }else{
+            
+            int l,r;//cin>>l>>r;
+            scanf("%d%d",&l,&r);
+            int ans=0;
+            for(int i=0;i<26;i++){
+                set<int>::iterator it;
+                it=s[i].lower_bound(l);
+                if(it==s[i].end()){
+                    continue;
+                }
+                if(*it>=l&&*it<=r)
+                    ans++;
+                
+                    
+            }            
+            printf("%d\n",ans);    
+        }
+    }
+ 
+    return 0;
+}

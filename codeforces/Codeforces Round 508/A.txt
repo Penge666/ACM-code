@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+#define inf 0x3f3f3f3f3f3f
+#define int long long
+int vis[150];
+signed main(){
+    int n,k;
+    cin>>n>>k;
+    string str;
+    cin>>str;
+    map<int,int> mp;
+    int sum=0;
+    for(int i=0;i<str.size();i++){
+        if(!mp[str[i]-'A']){
+            mp[str[i]-'A']=1;
+            sum++;
+        }
+        vis[str[i]-'A']++;
+    }
+    if(sum==k){
+        int ans=inf;
+        for(int i=0;i<k;i++){
+            ans=min(ans,vis[i]);
+        }
+        //cout<<ans<<'\n';
+        cout<<ans*k;
+    }else{
+        cout<<"0";
+    }
+    return 0;
+}

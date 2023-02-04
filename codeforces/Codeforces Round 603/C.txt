@@ -1,0 +1,44 @@
+/*
+一共有n块钱，k个人[n/k]块钱，向下取整。
+
+现在给你n块钱，你不知道有多少人，输出每个人可能获得多少钱
+
+其实就是找可行方案。【好像正规做法是数论分块】
+
+题意没理解QAQ。
+
+
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+
+signed main(){
+    int _;
+    cin>>_;
+    while(_--){
+        int n;
+        cin>>n;
+        vector<int> ans;
+        map<int,int> mp;
+        ans.push_back(0);
+        for(int i=1;i*i<=n;i++){
+            if(!mp[i])
+                ans.push_back(i);
+            mp[i]=1;
+            if(!mp[n/i])
+                ans.push_back(n/i);
+            mp[n/i]=1;
+        }
+        sort(ans.begin(),ans.end());
+        cout<<ans.size()<<'\n';
+        for(int i=0;i<ans.size();i++){
+            cout<<ans[i]<<" ";
+        }
+        cout<<'\n';
+    }
+    return 0;
+}

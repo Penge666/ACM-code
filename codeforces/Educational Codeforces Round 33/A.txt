@@ -1,0 +1,37 @@
+/*
+思路：简单的模拟即可。
+
+
+*/
+#include<bits/stdc++.h>
+
+using namespace std;
+int main(){
+    int _;
+    cin>>_;
+    int flag=1;
+    int arr[_+10];
+    int a,b,c;
+    a=1;b=2;c=3;
+    for(int i=1;i<=_;i++){
+        cin>>arr[i];
+        if(arr[i]==c){
+            flag=0;
+        }
+        if(flag){
+            if(arr[i]==a){
+                swap(b,c);
+            }else if(arr[i]==b){
+                swap(a,c);
+            }else if(arr[i]==c){
+                swap(a,b);
+            }
+       }
+    }
+    if(flag){
+        puts("YES");
+    }else{
+        puts("NO");
+    }
+    return 0;
+}
